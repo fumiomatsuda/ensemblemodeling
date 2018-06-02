@@ -1376,7 +1376,7 @@ if __name__ == '__main__':
     #
     # Construct a instances of EnsembleModel indluing 100 models
     #
-    emodel = EnsembleModel(metabolites, reactions, parameters, 10, numberofcpus = 3)
+    emodel = EnsembleModel(metabolites, reactions, parameters, 100, numberofcpus = 3)
     #
     # Randomize parameters
     #
@@ -1407,71 +1407,65 @@ if __name__ == '__main__':
     # Set to Mixotrophic condition
     #
 
-    emodel.activate_reaction('Glcin',0.53, type="set")
-    emodel.activate_reaction('biomass_mixo',0.105, type="set")
-    emodel.activate_reaction('biomass_auto',0.0, type="set")
+    emodel.activate_reaction('Glcin',0.53, type="set")#0 (n=3)
+    emodel.activate_reaction('biomass_mixo',0.105, type="set")#0 (n=3)
+    emodel.activate_reaction('biomass_auto',0.0, type="set")#
     emodel.activate_reaction('PS2',0.661236742463)
     emodel.activate_reaction('ATPsynthase',0.830675319345)
     emodel.activate_reaction('PS1',0.655529574201)
     emodel.activate_reaction('Cyclic1',0.450798366064)
-    emodel.activate_reaction('Cyclic2',0.573808373568)
+    emodel.activate_reaction('Cyclic2',0.573808373568)#
 
-    emodel.activate_reaction('gap',0.725, parameter = 'Vmax1')
-    emodel.activate_reaction('gap',0.702, parameter = 'Vmax2')
-    emodel.activate_reaction('prk',0.270)
+    emodel.activate_reaction('pgi',0.557736659)#
+    emodel.activate_reaction('fbp',0.47147651)#2
+    emodel.activate_reaction('zwf',0.416656014)#0 (n=3)
+    emodel.activate_reaction('gnd',0.470500677)#7
+    emodel.activate_reaction('tpi',1.038457452)#5
+    emodel.activate_reaction('gap',0.893092787*0.81258219463, parameter = 'Vmax1')#1
+    emodel.activate_reaction('gap',0.864441533*0.81258219463, parameter = 'Vmax2')
+    emodel.activate_reaction('pgk',0.650063618)#1
+    emodel.activate_reaction('gpm',0.885801129)#1
+    emodel.activate_reaction('eno',0.555205047)#1
+    emodel.activate_reaction('pyk',0.881727006)#1
+    emodel.activate_reaction('pdh',2.182837227)#3
+    emodel.activate_reaction('rpi',0.727094881)#6
+    emodel.activate_reaction('tkl1',0.919198872)#6
+    emodel.activate_reaction('tkl2',0.919198872)#1
+    emodel.activate_reaction('tal',0.516646014)#3
+    emodel.activate_reaction('glp',0.947363741)#3
+    emodel.activate_reaction('prk',1.004317981*0.261964624732)#
+    emodel.activate_reaction('rbc',0.564054229)#2
+    emodel.activate_reaction('icd',1.010981066)#6
+    emodel.activate_reaction('sdh',0.793957909)#10
+    emodel.activate_reaction('gabD',1.722472054)#4
+    emodel.activate_reaction('pfk',0.579702841)#10
+    emodel.activate_reaction('GlycoDegra',0)#自分で追加,0 (n=3)
 
-
-    emodel.activate_reaction('pgi',0.557736659)
-    emodel.activate_reaction('fbp',0.47147651)
-    emodel.activate_reaction('pfk',0.579702841)
-    emodel.activate_reaction('tpi',1.038457452)
-    emodel.activate_reaction('pgk',0.650063618)
-    emodel.activate_reaction('gpm',0.885801129)
-    emodel.activate_reaction('eno',0.555205047)
-    emodel.activate_reaction('pyk',0.881727006)
-    emodel.activate_reaction('pdh',2.182837227)
-    emodel.activate_reaction('zwf',0.416656014)
-    emodel.activate_reaction('gnd',0.470500677)
-    emodel.activate_reaction('rpi',0.727094881)
-    emodel.activate_reaction('tkl1',0.919198872)
-    emodel.activate_reaction('tkl2',0.919198872)
-    emodel.activate_reaction('tal',0.516646014)
-    emodel.activate_reaction('glp',0.947363741)
-    emodel.activate_reaction('rbc',0.564054229)
-    emodel.activate_reaction('icd',1.010981066)
-    emodel.activate_reaction('sdh',0.793957909)
-    emodel.activate_reaction('gabD',1.722472054)
-    emodel.activate_reaction('GlycoDegra',0)
-
-    emodel.set_initial_conc('2KG',3.328217254)
-    emodel.set_initial_conc('2PG',3.547393766)
-    emodel.set_initial_conc('3PG',7.205718315)
-    emodel.set_initial_conc('6PG',0.041572036)
-    emodel.set_initial_conc('ADP',0.3383733 )
-    emodel.set_initial_conc('ATP',0.790816327)
-    emodel.set_initial_conc('AcCoA',0.906838868)
-    emodel.set_initial_conc('DHAP',0.401978414)
-    emodel.set_initial_conc('E4P',0.076844557)
-    emodel.set_initial_conc('F6P',0.368421182)
-    emodel.set_initial_conc('FBP',0.300229255)
-    emodel.set_initial_conc('Fumarate',0.14399003)
-    emodel.set_initial_conc('G3P',0.044076581)
-    emodel.set_initial_conc('G6P',1.004556737)
-    emodel.set_initial_conc('Malate',0.292406765)
-    emodel.set_initial_conc('NAD',0.202097932)
-    emodel.set_initial_conc('NADH',0.232855609)
-    emodel.set_initial_conc('NADP',1.258654747)
-    emodel.set_initial_conc('NADPH',0.07670869)
-    emodel.set_initial_conc('PEP',3.996971978)
-    emodel.set_initial_conc('PYR',0.780468813)
-    emodel.set_initial_conc('R5P',0.018437689)
-    emodel.set_initial_conc('Ru5P',0.013850256)
-    emodel.set_initial_conc('RuBP',0.500139524)
-    emodel.set_initial_conc('S7P',0.025723602)
-    emodel.set_initial_conc('Succinate',0.129317303)
-    emodel.set_initial_conc('X5P',0.051934026)
-    emodel.set_initial_conc('citrate',3.206916265)
-    emodel.set_initial_conc('isoCitrate',3.591435793 )
+    # estimated from metabolome data
+    """
+    emodel.set_initial_conc('G6P',1.27078901476552)#3
+    emodel.set_initial_conc('F6P',0.489702689782609)#6
+    emodel.set_initial_conc('FBP',0.105394960136519)#5
+    emodel.set_initial_conc('DHAP',0.12719652009772)#8
+    emodel.set_initial_conc('G3P',0.00578166000444182)#
+    emodel.set_initial_conc('3PG',20.587766615)#3
+    emodel.set_initial_conc('2PG',7.68601982633334)#3
+    emodel.set_initial_conc('PEP',7.05958686890909)#3
+    emodel.set_initial_conc('6PG',0.765453356666667)#4
+    emodel.set_initial_conc('Ru5P',0.0190665861818182)#10
+    emodel.set_initial_conc('R5P',0.0163890564444444)#10
+    emodel.set_initial_conc('S7P',0.04644947516)#10
+    emodel.set_initial_conc('RuBP',0.09854966)#4
+    emodel.set_initial_conc('AcCoA',0.7772904585)#7
+    emodel.set_initial_conc('citrate',1.191140327)#4
+    emodel.set_initial_conc('isoCitrate',2.08326949452983)#9
+    emodel.set_initial_conc('Succinate',0.4285944916)#3
+    emodel.set_initial_conc('Malate',0.268536825)#10
+    emodel.set_initial_conc('NADP',0.0578947364057971)#0 (n=3)
+    emodel.set_initial_conc('NAD',0.0499999999245283)#2
+    emodel.set_initial_conc('ADP',0.364396650443149)#
+    emodel.set_initial_conc('ATP',0.862588556487201)#
+    """
     #
     # Solve
     #
