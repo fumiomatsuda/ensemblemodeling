@@ -8,7 +8,7 @@
 # Stoichiometry
 # type of rate equation
 # effector
-# Initial metabolic flux
+# Initial metabolic flux levels
 //Reactions
 Glcin	SubsGlc+ATP=G6P+ADP	Constant	nothing	0
 pgi	G6P=F6P	reversible_Michaelis_Menten	nothing	-1.0801
