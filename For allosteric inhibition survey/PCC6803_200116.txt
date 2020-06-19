@@ -1,0 +1,383 @@
+#
+# Metabolic model for Ensenble modeling of PCC6803 under the photoautotrophic condition
+# 2016-8 Osaka University
+#
+# Reactions
+# ID
+# Stoichiometry
+# type of rate equation
+# effector
+# Initial metabolic flux
+//Reactions
+Glcin	SubsGlc+ATP=G6P+ADP	Constant	nothing	0
+pgi	G6P=F6P	reversible_Michaelis_Menten	nothing	-1.0801
+fbp	FBP=F6P	irreversible_Michaelis_Menten	nothing	0.45021
+pfk	F6P+ATP=FBP+ADP	irreversible_Michaelis_Menten_bi_bi	nothing	0.00018699
+fba	FBP=DHAP+G3P	ordered_uni_bi	nothing	-0.45002
+tpi	DHAP=G3P	reversible_Michaelis_Menten	nothing	-3.4506
+gap	BPG+NADPH=G3P+NADP	reversible_Michaelis_Menten_bi_bi_twoisozyme	nothing	8.1068
+pgk	3PG+ATP=BPG+ADP	irreversible_Michaelis_Menten_bi_bi	nothing	8.1068
+gpm	3PG=2PG	reversible_Michaelis_Menten	nothing	1.0186
+eno	2PG=PEP	reversible_Michaelis_Menten	nothing	1.0186
+#pyk	PEP+ADP=PYR+ATP	PYK	ATP+citrate+FBP	0.60139
+pyk	PEP+ADP=PYR+ATP	irreversible_Michaelis_Menten_bi_bi	nothing	0.60139
+pdh	PYR+NAD=AcCoA+NADH	reversible_Michaelis_Menten_bi_bi	nothing	0.64028
+zwf	G6P+NADP=6PG+NADPH	reversible_Michaelis_Menten_bi_bi	nothing	1.1406
+gnd	6PG+NADP=Ru5P+NADPH	reversible_Michaelis_Menten_bi_bi	nothing	1.1406
+rpe	X5P=Ru5P	reversible_Michaelis_Menten	nothing	2.3704
+rpi	R5P=Ru5P	reversible_Michaelis_Menten	nothing	1.1063
+tkl1	S7P+G3P=R5P+X5P	reversible_Michaelis_Menten_bi_bi	nothing	1.1647
+tkl2	F6P+G3P=E4P+X5P	reversible_Michaelis_Menten_bi_bi	nothing	1.2057
+tal	F6P+E4P=G3P+S7P	reversible_Michaelis_Menten_bi_bi	nothing	-1.8358
+aldo	SBP=DHAP+E4P	ordered_uni_bi	nothing	-3.0005
+glp	SBP=S7P	reversible_Michaelis_Menten	nothing	3.0005
+prk	Ru5P+ATP=RuBP+ADP	irreversible_Michaelis_Menten_bi_bi	nothing	4.6174
+rbc	RuBP+CO2={2}3PG	irreversible_Michaelis_Menten_bi_uni	nothing	4.6174
+glt	AcCoA+OAA=citrate	reversible_Michaelis_Menten_bi_uni	nothing	0.33134
+can	citrate=isoCitrate	reversible_Michaelis_Menten	nothing	0.33134
+icd	isoCitrate+NADP=2KG+NADPH	reversible_Michaelis_Menten_bi_bi	nothing	0.31847
+sdh	Succinate+Q=Fumarate+QH2	reversible_Michaelis_Menten_bi_bi	nothing	0.2306
+fum	Fumarate=Malate	reversible_Michaelis_Menten	nothing	0.2864
+mdh	OAA+NADH=Malate+NAD	reversible_Michaelis_Menten_bi_bi	nothing	-0.16258
+ppc	PEP=OAA	reversible_Michaelis_Menten	nothing	0.33534
+mae	Malate+NADP=PYR+NADPH	reversible_Michaelis_Menten_bi_bi	nothing	0.13668
+gabD	2KG=Succinate	reversible_Michaelis_Menten	nothing	0.21774
+icl	Succinate+Glyoxylate=isoCitrate	reversible_Michaelis_Menten_bi_uni	nothing	-0.012863
+mls	AcCoA+Glyoxylate=Malate	reversible_Michaelis_Menten_bi_uni	nothing	0.012863
+CytoCoxi	QH2=Q+{2}Hex	Mass_action_one_substrate	nothing	0.0001
+PS2	{4}photon+{4}Q={4}QH2	Mass_action_two_substrate	nothing	5.4756
+ATPsynthase	{3}ADP+{14}Hex={3}ATP	irreversible_Michaelis_Menten_bi_uni	nothing	5.4939
+PS1	{4}QH2+{2}NADP+{4}photon={4}Q+{2}NADPH+{8}Hex	Mass_action_three_substrate	nothing	6.8936
+Cyclic1	NADPH+Q={4}Hex+NADP+QH2	Mass_action_two_substrate	nothing	4.4084
+Cyclic2	NADH+Q={4}Hex+NAD+QH2	Mass_action_two_substrate	nothing	1.0332
+ATPsink	ATP=ADP	irreversible_Michaelis_Menten	nothing	0.0001
+NADPHsink	NADPH=NADP	irreversible_Michaelis_Menten	nothing	0.0001
+NADHsink	NADH=NAD	irreversible_Michaelis_Menten	nothing	0.0001
+GlycoDegra	Glycogen=G6P	Constant	nothing	0.15777
+pdc_constant	PYR+NADH=Ethanol+NAD	Constant	nothing	0
+biomass_auto	{1.191}G6P+{1.338}3PG+{1.002}PEP+{1.197}PYR+{3.624}AcCoA+{1.233}2KG+{2.039}OAA+{0.715}R5P+{0.501}E4P+{2.82}NAD+{49.06}NADPH+{53.35}ATP={2.82}NADH+{49.06}NADP+{53.35}ADP+{0.683}Fumarate	Constant	nothing	0.0817
+biomass_mixo	{1.128}G6P+{0.208}3PG+{1.42}PEP+{2.44}PYR+{3.96}AcCoA+{0.886}2KG+{1.14}OAA+{0.382}R5P+{0.376}E4P+{2.82}NAD+{29.01}NADPH+{38.89}ATP={2.82}NADH+{29.01}NADP+{38.89}ADP	Constant	nothing	0
+//Endreactions
+#
+#Definition of carbon numbers of intermediates
+#
+# ID
+# Initial metabolite concentration
+# type of metabolite "initial" metabolite is constant
+//Metabolites
+BPG	0.01	free
+E4P	0.076844557	free
+X5P	0.051934026	free
+SBP	0.01	free
+G6P	1.004556737	free
+F6P	0.368421182	free
+FBP	0.300229255	free
+DHAP	0.401978414	free
+G3P	0.044076581	free
+3PG	7.205718315	free
+2PG	3.547393766	free
+PEP	3.996971978	free
+PYR	0.780468813	free
+6PG	0.041572036	free
+Ru5P	0.013850256	free
+R5P	0.018437689	free
+S7P	0.025723602	free
+RuBP	0.500139524	free
+AcCoA	0.906838868	free
+citrate	3.206916265	free
+isoCitrate	3.591435793	free
+2KG	3.328217254	free
+Succinate	0.129317303	free
+Fumarate	0.14399003	free
+Glyoxylate	0.01	free
+Malate	0.292406765	free
+OAA	0.01	free
+NADP	1.258654747	free
+NADPH	0.07670869	free
+NAD	0.202097932	free
+NADH	0.232855609	free
+ADP	0.3383733	free
+ATP	0.790816327	free
+Q	0.01	free
+QH2	0.01	free
+Hex	0.01	free
+photon	0.01	initial
+Fumout	0.01	initial
+SubsGlc	0.01	initial
+CO2	0.01	initial
+Glycogen	0.01	initial
+Ethanol	0.01	initial
+//Endmetablites
+#
+# Ranges of parameters
+#
+# Reaction ID
+# Parameter
+# Lower boundary
+# Reference level (not used)
+# Upper boundary
+# type of distribution
+//Parameters
+Glcin	Vmax	0.01	1	100	log
+pgi	Keq	0.0722	0.361	1.805	log
+pgi	Kma	0.01	1	100	log
+pgi	Kmp	0.01	1	100	log
+pgi	Vmax	0.01	1	100	log
+pgi	Ki	0.01	1	100	log
+pgi	ppi	0	1	1	normal
+fbp	Km	0.01	1	100	log
+fbp	Vmax	0.01	1	100	log
+fbp	Ki	0.01	1	100	log
+fbp	ppi	0	1	1	normal
+pfk	Kma	0.01	1	100	log
+pfk	Kmb	0.01	1	100	log
+pfk	Vmax	0.01	1	100	log
+pfk	Ki	0.01	1	100	log
+pfk	ppi	0	1	1	normal
+fba	Keq	2.45E-05	0.000122302	0.000611511	log
+fba	Kiq	0.01	1	100	log
+fba	Kma	0.01	1	100	log
+fba	Kmp	0.01	1	100	log
+fba	Kmq	0.01	1	100	log
+fba	Vmax	0.01	1	100	log
+fba	Ki	0.01	1	100	log
+fba	ppi	0	1	1	normal
+tpi	Keq	0.021929825	0.109649123	0.548245615	log	#0.021
+tpi	Kma	0.01	1	100	log
+tpi	Kmp	0.01	1	100	log
+tpi	Vmax	0.01	1	100	log
+tpi	Ki	0.01	1	100	log
+tpi	ppi	0	1	1	normal
+gap	Keq	4.395735275	21.97867638	109.8933819	log
+gap	Kma1	0.01	1	100	log
+gap	Kma2	0.01	1	100	log
+gap	Kmb1	0.01	1	100	log
+gap	Kmb2	0.01	1	100	log
+gap	Kmp1	0.01	1	100	log
+gap	Kmp2	0.01	1	100	log
+gap	Kmq1	0.01	1	100	log
+gap	Kmq2	0.01	1	100	log
+gap	Vmax	0.01	1	100	log
+gap	Vmax1	0.1	1	1	normal
+gap	Vmax2	0.1	1	1	normal
+gap	Ki	0.01	1	100	log
+gap	ppi	0	1	1	normal
+pgk	Keq	0.0000058	0.00058	0.058	log
+pgk	Kma	0.10008	0.5004	2.502	log
+pgk	Kmb	0.10564	0.5282	2.641	log
+pgk	Kmp	0.01	1	100	log
+pgk	Kmq	0.01	1	100	log
+pgk	Vmax	0.01	1	100	log
+pgk	Ki	0.01	1	100	log
+pgk	ppi	0	1	1	normal
+gpm	Keq	1.098	5.49	27.45	log
+gpm	Kma	0.01	1	100	log
+gpm	Kmp	0.01	1	100	log
+gpm	Vmax	0.01	1	100	log
+gpm	Ki	0.01	1	100	log
+gpm	ppi	0	1	1	normal
+eno	Keq	1.04	5.2	26	log
+eno	Kma	0.01	1	100	log
+eno	Kmp	0.01	1	100	log
+eno	Vmax	0.01	1	100	log
+eno	Ki	0.01	1	100	log
+eno	ppi	0	1	1	normal
+pyk	Kma	0.2502	1.251	6.255	log
+pyk	Kmb	0.01	1	100	log
+pyk	Kmp	0.01	1	100	log
+pyk	Kmq	0.01	1	100	log
+pyk	Vmax	0.01	1	100	log
+pyk	pp1	0	0.5	1	normal
+pyk	pp2	0	0.5	1	normal
+pyk	pp3	0	0.5	1	normal
+pyk	pp4	0	0.5	1	normal
+pyk	qq1	0	0.5	1	normal
+pyk	Ki	0.01	1	100	log
+pyk	ppi	0	1	1	normal
+pdh	Keq	320000	1600000	8000000	log
+pdh	Kma	0.01	1	100	log
+pdh	Kmb	0.01	1	100	log
+pdh	Kmp	0.01	1	100	log
+pdh	Kmq	0.01	1	100	log
+pdh	Vmax	0.01	1	100	log
+pdh	Ki	0.01	1	100	log
+pdh	ppi	0	1	1	normal
+zwf	Keq	0.512	2.56	12.8	log
+zwf	Kma	0.01	1	100	log
+zwf	Kmb	0.01	1	100	log
+zwf	Kmp	0.01	1	100	log
+zwf	Kmq	0.01	1	100	log
+zwf	Vmax	0.01	1	100	log
+zwf	Ki	0.01	1	100	log
+zwf	ppi	0	1	1	normal
+gnd	Keq	0.00222	0.0111	0.0555	log
+gnd	Kma	0.01	1	100	log
+gnd	Kmb	0.01	1	100	log
+gnd	Kmp	0.01	1	100	log
+gnd	Kmq	0.01	1	100	log
+gnd	Vmax	0.01	1	100	log
+gnd	Ki	0.01	1	100	log
+gnd	ppi	0	1	1	normal
+rpe	Keq	0.051150895	0.255754476	1.27877238	log
+rpe	Kma	0.01	1	100	log
+rpe	Kmp	0.01	1	100	log
+rpe	Vmax	0.01	1	100	log
+rpe	Ki	0.01	1	100	log
+rpe	ppi	0	1	1	normal
+rpi	Keq	0.0914	0.457	2.285	log
+rpi	Kma	0.01	1	100	log
+rpi	Kmp	0.01	1	100	log
+rpi	Vmax	0.01	1	100	log
+rpi	Ki	0.01	1	100	log
+rpi	ppi	0	1	1	normal
+tkl1	Keq	0.096	0.48	2.4	log	#7.4
+tkl1	Kma	0.01	1	100	log
+tkl1	Kmb	0.01	1	100	log
+tkl1	Kmp	0.01	1	100	log
+tkl1	Kmq	0.01	1	100	log
+tkl1	Vmax	0.01	1	100	log
+tkl1	Ki	0.01	1	100	log
+tkl1	ppi	0	1	1	normal
+tkl2	Keq	0.0168	0.084	0.42	log	#2.1
+tkl2	Kma	0.01	1	100	log
+tkl2	Kmb	0.01	1	100	log
+tkl2	Kmp	0.01	1	100	log
+tkl2	Kmq	0.01	1	100	log
+tkl2	Vmax	0.01	1	100	log
+tkl2	Ki	0.01	1	100	log
+tkl2	ppi	0	1	1	normal
+tal	Keq	0.149253731	0.746268657	3.731343285	log	#0.0004
+tal	Kma	0.01	1	100	log
+tal	Kmb	0.01	1	100	log
+tal	Kmp	0.01	1	100	log
+tal	Kmq	0.01	1	100	log
+tal	Vmax	0.01	1	100	log
+tal	Ki	0.01	1	100	log
+tal	ppi	0	1	1	normal
+aldo	Keq	0.000496403	0.002482014	0.012410072	log
+aldo	Kiq	0.01	1	100	log
+aldo	Kma	0.01	1	100	log
+aldo	Kmp	0.01	1	100	log
+aldo	Kmq	0.01	1	100	log
+aldo	Vmax	0.01	1	100	log
+aldo	Ki	0.01	1	100	log
+aldo	ppi	0	1	1	normal
+glp	Keq	191.2144845	956.0724224	4780.362112	log
+glp	Kma	0.01	1	100	log
+glp	Kmp	0.01	1	100	log
+glp	Vmax	0.01	1	100	log
+glp	Ki	0.01	1	100	log
+glp	ppi	0	1	1	normal
+prk	Keq	1050	2100	4200	log
+prk	Kma	0.15012	0.7506	3.753	log
+prk	Kmb	0.05004	0.2502	1.251	log
+prk	Kmp	0.01	1	100	log
+prk	Kmq	0.01	1	100	log
+prk	Vmax	0.01	1	100	log
+prk	Ki	0.01	1	100	log
+prk	ppi	0	1	1	normal
+rbc	Keq	18000	90000	450000	log
+rbc	Kma	0.07784	0.3892	1.946	log
+rbc	Kmb	0.100636	0.50318	2.5159	log
+rbc	Kmp	0.01	1	100	log
+rbc	Vmax	0.01	1	100	log
+rbc	Ki	0.01	1	100	log
+rbc	ppi	0	1	1	normal
+glt	Keq	646511.6281	3232558.14	16162790.7	log
+glt	Kma	0.01	1	100	log
+glt	Kmb	0.01	1	100	normal
+glt	Kmp	0.01	1	100	log
+glt	Vmax	0.01	1	100	log
+glt	Ki	0.01	1	100	log
+glt	ppi	0	1	1	normal
+can	Keq	0.00916	0.0458	0.229	log	#1.9
+can	Kma	0.01	1	100	log
+can	Kmp	0.01	1	100	log
+can	Vmax	0.01	1	100	log
+can	Ki	0.01	1	100	log
+can	ppi	0	1	1	normal
+icd	Keq	0.01528	0.0764	0.382	log
+icd	Kma	0.01	1	100	log
+icd	Kmb	0.01	1	100	log
+icd	Kmp	0.01	1	100	log
+icd	Kmq	0.01	1	100	log
+icd	Vmax	0.01	1	100	log
+icd	Ki	0.01	1	100	log
+icd	ppi	0	1	1	normal
+sdh	Keq	1.444	7.22	36.1	log
+sdh	Kma	0.01	1	100	log
+sdh	Kmb	0.01	1	100	log
+sdh	Kmp	0.01	1	100	log
+sdh	Kmq	0.01	1	100	log
+sdh	Vmax	0.01	1	100	log
+sdh	Ki	0.01	1	100	log
+sdh	ppi	0	1	1	normal
+fum	Keq	0.806451613	4.032258065	20.16129033	log
+fum	Kma	0.01	1	100	log
+fum	Kmp	0.01	1	100	log
+fum	Vmax	0.01	1	100	log
+fum	Ki	0.01	1	100	log
+fum	ppi	0	1	1	normal
+mdh	Keq	0.000234	0.00117	0.00585	log
+mdh	Kma	0.01	1	100	log
+mdh	Kmb	0.01	1	100	log
+mdh	Kmp	0.01	1	100	log
+mdh	Kmq	0.01	1	100	log
+mdh	Vmax	0.01	1	100	log
+mdh	Ki	0.01	1	100	log
+mdh	ppi	0	1	1	normal
+ppc	Keq	555555.5556	2777777.778	13888888.89	log
+ppc	Kma	0.01	1	100	log
+ppc	Kmp	0.01	1	100	log
+ppc	Vmax	0.01	1	100	log
+ppc	Ki	0.01	1	100	log
+ppc	ppi	0	1	1	normal
+mae	Keq	0.01116	0.0558	0.279	log	#0.26
+mae	Kma	0.01	1	100	log
+mae	Kmb	0.01	1	100	log
+mae	Kmp	0.01	1	100	log
+mae	Kmq	0.01	1	100	log
+mae	Vmax	0.01	1	100	log
+mae	Ki	0.01	1	100	log
+mae	ppi	0	1	1	normal
+gabD	Keq	0.01	1	100	log
+gabD	Kma	0.01	1	100	log
+gabD	Kmp	0.01	1	100	log
+gabD	Vmax	0.01	1	100	log
+gabD	Ki	0.01	1	100	log
+gabD	ppi	0	1	1	normal
+icl	Keq	19.17241379	95.86206897	479.3103448	log
+icl	Kma	0.01	1	100	log
+icl	Kmb	0.01	1	100	log
+icl	Kmp	0.01	1	100	log
+icl	Vmax	0.01	1	100	log
+icl	Ki	0.01	1	100	log
+icl	ppi	0	1	1	normal
+mls	Keq	308888.8889	1544444.444	7722222.222	log
+mls	Kma	0.01	1	100	log
+mls	Kmb	0.01	1	100	log
+mls	Kmp	0.01	1	100	log
+mls	Vmax	0.01	1	100	log
+mls	Ki	0.01	1	100	log
+mls	ppi	0	1	1	normal
+CytoCoxi	Vmax	0.01	1	100	log
+PS2	Vmax	0.01	1	100	log
+ATPsynthase	Keq	0.01	1	100	log
+ATPsynthase	Kma	0.01	1	100	log
+ATPsynthase	Kmb	0.01	1	100	log
+ATPsynthase	Kmp	0.01	1	100	log
+ATPsynthase	Vmax	0.01	1	100	log
+PS1	Vmax	0.01	1	100	log
+Cyclic1	Vmax	0.01	1	100	log
+Cyclic2	Vmax	0.01	1	100	log
+ATPsink	Km	0.01	1	100	log
+ATPsink	Vmax	0.01	1	100	log
+NADPHsink	Km	0.01	1	100	log
+NADPHsink	Vmax	0.01	1	100	log
+NADHsink	Km	0.01	1	100	log
+NADHsink	Vmax	0.01	1	100	log
+GlycoDegra	Vmax	0.01	1	100	log
+biomass_auto	Vmax	0.01	1	100	log
+biomass_mixo	Vmax	0.01	1	100	log
+pdc_constant	Vmax	0.01	1	100	log
+//Endparameters
